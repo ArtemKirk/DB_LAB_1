@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    build: .            # Собирает образ из Dockerfile в текущей директории
+    image: library-db           # Строим образ из текущей директории
+    ports:
+      - "8080:5432"   # Пробрасываем порт PostgreSQL
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data # Сохраняем данные между перезапусками контейнеров
+    restart: unless-stopped # Автоматический перезапуск при сбоях
+
+volumes:
+  db_data: # Определяем том для сохранения данных
+      
